@@ -10,6 +10,21 @@ local inImpound = false
 local inGarage = false
 local inEvidence = false
 
+local performanceModIndices = { 11, 12, 13, 15, 16 }
+function PerformanceUpgradeVehicle(vehicle, customWheels)
+    customWheels = customWheels or false
+    local max
+    if DoesEntityExist(vehicle) and IsEntityAVehicle(vehicle) then
+        SetVehicleModKit(vehicle, 0)
+        for _, modType in ipairs(performanceModIndices) do
+            max = GetNumVehicleMods(vehicle, tonumber(modType)) - 1
+            SetVehicleMod(vehicle, modType, max, customWheels)
+        end
+        ToggleVehicleMod(vehicle, 18, true) -- Turbo
+        SetVehicleFixed(vehicle)
+    end
+end
+
 local function loadAnimDict(dict) -- interactions, job,
     while (not HasAnimDictLoaded(dict)) do
         RequestAnimDict(dict)
@@ -141,6 +156,7 @@ function TakeOutVehicle(vehicleInfo)
         QBCore.Functions.TriggerCallback('QBCore:Server:SpawnVehicle', function(netId)
             local veh = NetToVeh(netId)
             SetCarItemsInfo()
+            PerformanceUpgradeVehicle(veh)
             SetVehicleNumberPlateText(veh, Lang:t('info.police_plate') .. tostring(math.random(1000, 9999)))
             SetEntityHeading(veh, coords.w)
             exports[Config.FuelResource]:SetFuel(veh, 100.0)

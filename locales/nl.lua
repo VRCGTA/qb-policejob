@@ -190,7 +190,11 @@ local Translations = {
     },
     }
     
-    Lang = Lang or Locale:new({
-    phrases = Translations,
-    warnOnMissing = true
-    })
+    Locale:registerLocale(false, 'nl', function()
+        Lang = Locale:new({
+            phrases = Translations,
+            warnOnMissing = true,
+            fallbackLang = Lang,
+        })
+    end)
+    

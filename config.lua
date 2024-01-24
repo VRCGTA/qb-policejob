@@ -203,6 +203,8 @@ Config.Items = {
         { name = 'armor',              price = 0, amount = 50 },
         { name = 'radio',              price = 0, amount = 50 },
         { name = 'heavyarmor',         price = 0, amount = 50 },
+        { name = 'diving_gear',        price = 0, amount = 50 },
+        { name = 'diving_fill',        price = 0, amount = 50 },
     }
 }
 

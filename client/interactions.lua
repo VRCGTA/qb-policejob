@@ -415,7 +415,7 @@ CreateThread(function()
         end
 
         if isHandcuffed then
-            TriggerEvent('pma-voice:toggleRadioMute', true)
+            LocalPlayer.state:set("handcuffed", true, true)
             DisableControlAction(0, 24, true)  -- Attack
             DisableControlAction(0, 257, true) -- Attack 2
             DisableControlAction(0, 25, true)  -- Aim
@@ -458,7 +458,7 @@ CreateThread(function()
                 TaskPlayAnim(PlayerPedId(), 'mp_arresting', 'idle', 8.0, -8, -1, cuffType, 0, 0, 0, 0)
             end
         else
-            TriggerEvent('pma-voice:toggleRadioMute', false)
+            LocalPlayer.state:set("handcuffed", false, true)
         end
         if not isHandcuffed and not isEscorted then
             Wait(2000)

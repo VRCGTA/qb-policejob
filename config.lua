@@ -5,7 +5,7 @@ Config.HandCuffItem = 'handcuffs'
 Config.LicenseRank = 2
 Config.ArmoryWhitelist = {}
 Config.WhitelistedVehicles = {}
-Config.PoliceHelicopter = 'POLMAV'
+Config.PoliceHelicopter = 'eheli'
 Config.FuelResource = 'cdn-fuel' -- supports any that has a GetFuel() and SetFuel() export
 
 Config.AmmoLabels = {

@@ -7,36 +7,36 @@ PlayerJob = {}
 local DutyBlips = {}
 
 -- Functions
-local function CreateDutyBlips(playerId, playerLabel, playerJob, playerLocation)
-    local ped = GetPlayerPed(playerId)
-    local blip = GetBlipFromEntity(ped)
-    if not DoesBlipExist(blip) then
-        if NetworkIsPlayerActive(playerId) then
-            blip = AddBlipForEntity(ped)
-        else
-            blip = AddBlipForCoord(playerLocation.x, playerLocation.y, playerLocation.z)
-        end
-        SetBlipSprite(blip, 1)
-        ShowHeadingIndicatorOnBlip(blip, true)
-        SetBlipRotation(blip, math.ceil(playerLocation.w))
-        SetBlipScale(blip, 1.0)
-        if playerJob == 'police' then
-            SetBlipColour(blip, 38)
-        else
-            SetBlipColour(blip, 5)
-        end
-        SetBlipAsShortRange(blip, true)
-        BeginTextCommandSetBlipName('STRING')
-        AddTextComponentSubstringPlayerName(playerLabel)
-        EndTextCommandSetBlipName(blip)
-        DutyBlips[#DutyBlips + 1] = blip
-    end
+-- local function CreateDutyBlips(playerId, playerLabel, playerJob, playerLocation)
+--     local ped = GetPlayerPed(playerId)
+--     local blip = GetBlipFromEntity(ped)
+--     if not DoesBlipExist(blip) then
+--         if NetworkIsPlayerActive(playerId) then
+--             blip = AddBlipForEntity(ped)
+--         else
+--             blip = AddBlipForCoord(playerLocation.x, playerLocation.y, playerLocation.z)
+--         end
+--         SetBlipSprite(blip, 1)
+--         ShowHeadingIndicatorOnBlip(blip, true)
+--         SetBlipRotation(blip, math.ceil(playerLocation.w))
+--         SetBlipScale(blip, 1.0)
+--         if playerJob == 'police' then
+--             SetBlipColour(blip, 38)
+--         else
+--             SetBlipColour(blip, 5)
+--         end
+--         SetBlipAsShortRange(blip, true)
+--         BeginTextCommandSetBlipName('STRING')
+--         AddTextComponentSubstringPlayerName(playerLabel)
+--         EndTextCommandSetBlipName(blip)
+--         DutyBlips[#DutyBlips + 1] = blip
+--     end
 
-    if GetBlipFromEntity(PlayerPedId()) == blip then
-        -- Ensure we remove our own blip.
-        RemoveBlip(blip)
-    end
-end
+--     if GetBlipFromEntity(PlayerPedId()) == blip then
+--         -- Ensure we remove our own blip.
+--         RemoveBlip(blip)
+--     end
+-- end
 
 -- Events
 
@@ -138,20 +138,20 @@ RegisterNetEvent('police:client:sendBillingMail', function(amount)
 end)
 
 RegisterNetEvent('police:client:UpdateBlips', function(players)
-    if PlayerJob and PlayerJob.type == 'leo' and PlayerJob.onduty then
-        if DutyBlips then
-            for _, v in pairs(DutyBlips) do
-                RemoveBlip(v)
-            end
-        end
-        DutyBlips = {}
-        if players then
-            for _, data in pairs(players) do
-                local id = GetPlayerFromServerId(data.source)
-                CreateDutyBlips(id, data.label, data.job, data.location)
-            end
-        end
-    end
+    -- if PlayerJob and PlayerJob.type == 'leo' and PlayerJob.onduty then
+    --     if DutyBlips then
+    --         for _, v in pairs(DutyBlips) do
+    --             RemoveBlip(v)
+    --         end
+    --     end
+    --     DutyBlips = {}
+    --     if players then
+    --         for _, data in pairs(players) do
+    --             local id = GetPlayerFromServerId(data.source)
+    --             CreateDutyBlips(id, data.label, data.job, data.location)
+    --         end
+    --     end
+    -- end
 end)
 
 RegisterNetEvent('police:client:policeAlert', function(coords, text)

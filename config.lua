@@ -51,6 +51,7 @@ Config.Locations = {
     },
     ['fingerprint'] = {
         [1] = vector3(473.92, -1013.30, 26.27), --gabz
+        [2] = vector3(441.84, -979.56, 30.69), --gabz entrance
     },
     ['evidence'] = { --gabz
         [1] = vector3(446.84, -997.11, 30.69),

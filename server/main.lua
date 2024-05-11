@@ -535,7 +535,7 @@ end)
 -- Callbacks
 QBCore.Functions.CreateCallback('police:server:isPlayerDead', function(_, cb, playerId)
     local Player = QBCore.Functions.GetPlayer(playerId)
-    cb(Player.condition.in_dead)
+    cb(Player.PlayerData.condition.in_dead)
 end)
 
 QBCore.Functions.CreateCallback('police:GetPlayerStatus', function(_, cb, playerId)

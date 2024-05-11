@@ -535,7 +535,7 @@ end)
 -- Callbacks
 QBCore.Functions.CreateCallback('police:server:isPlayerDead', function(_, cb, playerId)
     local Player = QBCore.Functions.GetPlayer(playerId)
-    cb(Player.PlayerData.metadata['isdead'])
+    cb(Player.condition.in_dead)
 end)
 
 QBCore.Functions.CreateCallback('police:GetPlayerStatus', function(_, cb, playerId)
@@ -688,7 +688,7 @@ RegisterNetEvent('police:server:EscortPlayer', function(playerId)
     local EscortPlayer = QBCore.Functions.GetPlayer(playerId)
     if not Player or not EscortPlayer then return end
 
-    if (Player.PlayerData.job.type == 'leo' or Player.PlayerData.job.name == 'ambulance') or (EscortPlayer.PlayerData.metadata['ishandcuffed'] or EscortPlayer.PlayerData.metadata['isdead'] or EscortPlayer.PlayerData.metadata['inlaststand']) then
+    if (Player.PlayerData.job.type == 'leo' or Player.PlayerData.job.name == 'ambulance') or (EscortPlayer.PlayerData.metadata['ishandcuffed'] or EscortPlayer.condition.in_dead or EscortPlayer.PlayerData.condition.in_last_stand) then
         TriggerClientEvent('police:client:GetEscorted', EscortPlayer.PlayerData.source, Player.PlayerData.source)
     else
         TriggerClientEvent('QBCore:Notify', src, Lang:t('error.not_cuffed_dead'), 'error')
@@ -707,7 +707,7 @@ RegisterNetEvent('police:server:KidnapPlayer', function(playerId)
     local EscortPlayer = QBCore.Functions.GetPlayer(playerId)
     if not Player or not EscortPlayer then return end
 
-    if EscortPlayer.PlayerData.metadata['ishandcuffed'] or EscortPlayer.PlayerData.metadata['isdead'] or EscortPlayer.PlayerData.metadata['inlaststand'] then
+    if EscortPlayer.PlayerData.metadata['ishandcuffed'] or EscortPlayer.condition.in_dead or EscortPlayer.PlayerData.condition.in_last_stand then
         TriggerClientEvent('police:client:GetKidnappedTarget', EscortPlayer.PlayerData.source, Player.PlayerData.source)
         TriggerClientEvent('police:client:GetKidnappedDragger', Player.PlayerData.source, EscortPlayer.PlayerData.source)
     else
@@ -726,7 +726,7 @@ RegisterNetEvent('police:server:SetPlayerOutVehicle', function(playerId)
     local EscortPlayer = QBCore.Functions.GetPlayer(playerId)
     if not QBCore.Functions.GetPlayer(src) or not EscortPlayer then return end
 
-    if EscortPlayer.PlayerData.metadata['ishandcuffed'] or EscortPlayer.PlayerData.metadata['isdead'] then
+    if EscortPlayer.PlayerData.metadata['ishandcuffed'] or EscortPlayer.condition.in_dead then
         TriggerClientEvent('police:client:SetOutVehicle', EscortPlayer.PlayerData.source)
     else
         TriggerClientEvent('QBCore:Notify', src, Lang:t('error.not_cuffed_dead'), 'error')
@@ -744,7 +744,7 @@ RegisterNetEvent('police:server:PutPlayerInVehicle', function(playerId)
     local EscortPlayer = QBCore.Functions.GetPlayer(playerId)
     if not QBCore.Functions.GetPlayer(src) or not EscortPlayer then return end
 
-    if EscortPlayer.PlayerData.metadata['ishandcuffed'] or EscortPlayer.PlayerData.metadata['isdead'] then
+    if EscortPlayer.PlayerData.metadata['ishandcuffed'] or EscortPlayer.condition.in_dead then
         TriggerClientEvent('police:client:PutInVehicle', EscortPlayer.PlayerData.source)
     else
         TriggerClientEvent('QBCore:Notify', src, Lang:t('error.not_cuffed_dead'), 'error')

@@ -302,7 +302,7 @@ end)
 RegisterNetEvent('police:client:GetEscorted', function(playerId)
     local ped = PlayerPedId()
     QBCore.Functions.GetPlayerData(function(PlayerData)
-        if PlayerData.metadata['isdead'] or isHandcuffed or PlayerData.metadata['inlaststand'] then
+        if PlayerData.condition.in_dead or isHandcuffed or PlayerData.condition.in_last_stand then
             if not isEscorted then
                 isEscorted = true
                 local dragger = GetPlayerPed(GetPlayerFromServerId(playerId))
@@ -326,7 +326,7 @@ end)
 RegisterNetEvent('police:client:GetKidnappedTarget', function(playerId)
     local ped = PlayerPedId()
     QBCore.Functions.GetPlayerData(function(PlayerData)
-        if PlayerData.metadata['isdead'] or PlayerData.metadata['inlaststand'] or isHandcuffed then
+        if PlayerData.condition.in_dead or PlayerData.condition.in_last_stand or isHandcuffed then
             if not isEscorted then
                 isEscorted = true
                 local dragger = GetPlayerPed(GetPlayerFromServerId(playerId))
